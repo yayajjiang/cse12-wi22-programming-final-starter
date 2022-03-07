@@ -1,5 +1,5 @@
 /**
- * TODO: Add your file header
+ * TODO: Add file header
  * Name:
  * ID:
  * Email:
@@ -9,6 +9,9 @@
 import static org.junit.Assert.*;
 import org.junit.*;
 
+/**
+ * TODO: Add class header
+ */
 public class CSE12NaryTreeTester {
     /**
      * TODO: Add test case description.
