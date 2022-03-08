@@ -92,6 +92,9 @@ public class CSE12NaryTree<E> {
      * @param N The N the N-tree should be initialized with
      */
     public CSE12NaryTree(int N) {
+        if (N <= 0) {
+            throw new IllegalArgumentException();
+        }
         this.N = N;
     }
 
