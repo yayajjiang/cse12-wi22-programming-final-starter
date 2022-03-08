@@ -8,6 +8,9 @@
 
 import java.util.List;
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 /**
  * TODO: Add class header
@@ -17,7 +20,7 @@ public class CSE12NaryTree<E> {
     /**
      * This inner class encapsulates the data and children for a Node.
      */
-    class Node{
+    protected class Node{
         E data;
         List<Node> children;
     
@@ -69,12 +72,12 @@ public class CSE12NaryTree<E> {
         }
 
         /**
-         * Add the node to children
+         * Add the given node to this node's list of children
          * 
-         * @param n The node to add
+         * @param node The node to add
          */
-        public void addChild(Node n) {
-            children.add(n);
+        public void addChild(Node node) {
+            children.add(node);
         }
     
     }
