@@ -95,19 +95,29 @@ public class CSE12NaryTree<E> {
         if (N <= 0) {
             throw new IllegalArgumentException();
         }
+        this.root = null;
+        this.size = 0;
         this.N = N;
     }
 
+    /**
+     * TODO: Add method header
+     */
     public void add(E element) {
         //TODO
     }
 
-
+    /**
+     * TODO: Add method header
+     */
     public boolean contains(E element) {
         //TODO
         return false;
     }
 
+        /**
+     * TODO: Add method header
+     */
     public List<E> sortTree(){
         //TODO
         return null;
