@@ -118,7 +118,7 @@ public class CSE12NaryTree<E> {
         /**
      * TODO: Add method header
      */
-    public List<E> sortTree(){
+    public ArrayList<E> sortTree(){
         //TODO
         return null;
     }
