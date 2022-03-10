@@ -24,6 +24,7 @@ public class CSE12NaryTreeTester {
     /**
      * TODO: Add test case description
      */
+    @Test
     public void testContains(){
         
     }
@@ -31,6 +32,7 @@ public class CSE12NaryTreeTester {
     /**
      * TODO: Add test case description
      */
+    @Test
     public void testSortTree(){
         
     }
@@ -38,6 +40,7 @@ public class CSE12NaryTreeTester {
     /**
      * TODO: Add test case description
      */
+    @Test
     public void testCustom(){
         
     }
