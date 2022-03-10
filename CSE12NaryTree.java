@@ -19,6 +19,7 @@ public class CSE12NaryTree<E extends Comparable<E>> {
     
     /**
      * This inner class encapsulates the data and children for a Node.
+     * Do NOT edit this inner class.
      */
     protected class Node{
         E data;
