@@ -35,12 +35,13 @@ public class CSE12NaryTreeTester {
         fivetree.root.addChild(fivetree.new Node(3));
         fivetree.root.addChild(fivetree.new Node(4));
         fivetree.root.addChild(fivetree.new Node(5));
-        assertEquals("The size should be 6", 0, fivetree.size);
+        fivetree.size=6;
+
 
         fivetree.add(6);
         //after adding a node, the size should increment, and the position should be right
-        assertEquals("The size should increase", fivetree.size, 1);
-        assertEquals(fivetree.root.getChildren().get(0).getChildren().get(0), Integer.valueOf(6));
+        assertEquals("The size should increase", fivetree.size, 7);
+        assertEquals(fivetree.root.getChildren().get(0).getChildren().get(0).getData(), Integer.valueOf(6));
     }
 
     /**

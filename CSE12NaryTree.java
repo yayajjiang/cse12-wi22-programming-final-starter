@@ -155,10 +155,10 @@ public class CSE12NaryTree<E extends Comparable<E>> {
             size++;
             return;
         }
-        //if the tree is not empty, then we use queue to get a linked list of all nodes
+        //if the tree is not empty, then we use queue to keep iterating the nodes
         Queue<Node> q = new LinkedList<>();
         //use a list to store the nodes in the tree, so that we can get the parent node through
-        //index calculation easily
+        //the index calculation easily
         List<Node> levelnodes = new ArrayList<>();
 
         q.add(root);
@@ -169,11 +169,10 @@ public class CSE12NaryTree<E extends Comparable<E>> {
             //iteration through all the children if such nodes exist
             if(n.getChildren()!=null){
                 for(int i = 0; i < n.getNumChildren(); i++){
+                    //adding the children (if there are any) to the queue
                     q.add(n.getChildren().get(i));
                 }
             }
-
-
         }
 //        while(levelorderhelper(q, curr, height)){
 //            height++;
@@ -183,6 +182,7 @@ public class CSE12NaryTree<E extends Comparable<E>> {
         int parentindex = (q.size()-1)/N;
         //now addChild to the parent node
         Node parent = levelnodes.get(parentindex);
+
         parent.addChild(node);
         size++;
     }
@@ -199,12 +199,32 @@ public class CSE12NaryTree<E extends Comparable<E>> {
         if(this.root == null){
             return false;
         }
-        Node curr = this.root;
-        while (curr != null){
-            if(curr == element){
-                return true;
+        //base case, root value is equal to the element
+        if(this.root.getData().compareTo(element) == 0){
+            return true;
+        }
+        //if the tree is not empty, then we use queue to keep iterating the nodes
+        Queue<Node> q = new LinkedList<>();
+        //use a list to store the nodes in the tree
+        List<Node> levelnodes = new ArrayList<>();
+        q.add(root);
+        while(!q.isEmpty()){
+            //remove the node from the queue and add it to the list to store the nodes
+            Node n = q.remove();
+            levelnodes.add(n);
+            //iteration through all the children if such nodes exist
+            if(n.getChildren()!=null){
+                for(int i = 0; i < n.getNumChildren(); i++){
+                    //iterate through all the children nodes, and compare with the element
+                    //return true if find such node
+                    if(n.getChildren().get(i) == element){
+                        return true;
+                    }else{
+                        //else keeping adding the nodes into the q
+                        q.add(n.getChildren().get(i));
+                    }
+                }
             }
-            return false;
         }
         return false;
     }
