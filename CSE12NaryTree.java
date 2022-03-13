@@ -111,37 +111,6 @@ public class CSE12NaryTree<E extends Comparable<E>> {
      *
      */
 
-//    private boolean levelorderhelper(Queue q, Node n, int height){
-//        //base case
-//        if(n==null){
-//            return false;
-//        }
-//        if(height == 1){
-//            q.add(n);
-//            //return true if some nodes are at the level
-//            return true;
-//        }
-//        //keep going through the three nodes
-//        boolean left = levelorderhelper(q, root.getChildren().get(0), height-1);
-//        boolean middle = levelorderhelper(q, root.getChildren().get(1), height-1);
-//        boolean right = levelorderhelper(q, root.getChildren().get(2), height-1);
-//        return left||middle||right;
-//    }
-//    private Node parentfinder(int parentindex, Node root){
-//        Node temp = root;
-//        int parent = (parentindex-1)/3;
-//        while (parent!=0){
-//            if(parent % 3 == 0){
-//                temp = temp.getChildren().get(2);
-//            }else if(parent % 3 == 1){
-//                temp = temp.getChildren().get(0);
-//            }else if(parent % 3 == 2){
-//                temp = temp.getChildren().get(1);
-//            }
-//            parent = (parent-1)/3;
-//        }
-//        return temp;
-//    }
     public void add(E element) {
         //throw exception if element is null
         if(element == null){
@@ -151,7 +120,7 @@ public class CSE12NaryTree<E extends Comparable<E>> {
         Node node = new Node(element);
         //if tree is empty, change the value from null to element, size increments
         if(this.root == null){
-            this.root.setData(element);
+            this.root = new Node(element);
             size++;
             return;
         }
@@ -234,7 +203,32 @@ public class CSE12NaryTree<E extends Comparable<E>> {
      * if the tree is empty, the list should be null
      */
     public ArrayList<E> sortTree(){
-        //TODO
-        return null;
+        //initialize to an empty list
+        ArrayList<E> list = new ArrayList<>();
+        //initialize a priority queue
+        PriorityQueue<E> pq = new PriorityQueue<>();
+        Queue<Node> q = new LinkedList<>();
+
+        //empty tre, return an empty arraylist
+        if(root == null){
+            return list;
+        }else {
+            q.add(root);
+            while (!q.isEmpty()) {
+                //remove the node from the queue and add it to the list to store the nodes
+                Node n = q.remove();
+                pq.add(n.getData());
+                if(n.getChildren() != null){
+                    for(int i =0; i < n.getNumChildren(); i++){
+                        q.add(n.getChildren().get(i));
+                    }
+                }
+            }
+        }
+        while(!pq.isEmpty()){
+            list.add((E)pq.remove());
+        }
+        return list;
+
     }
 }
