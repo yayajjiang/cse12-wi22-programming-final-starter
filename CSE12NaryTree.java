@@ -1,9 +1,13 @@
 /**
- * TODO: Add file header
- * Name:
- * ID:
- * Email:
- * File description: 
+ *
+ * Name:Jinya Jiang
+ * ID:A17196093
+ * Email:j9jiang@ucsd.edu
+ * File description: This file is a tree class, it also has a Node class
+ * inside it. The tree and node builds an N tree. It have basic add, contains,
+ * and sort functions. It also implements an arraylist to represent the
+ * children nodes.
+ *
  */
 
 import java.util.List;
@@ -13,7 +17,9 @@ import java.util.PriorityQueue;
 import java.util.Queue;
 
 /**
- * TODO: Add class header
+ * This class has a constructor for the tree and several mathods such as add,
+ * contains and sort methods. It also has an inner Node class which creates
+ * Node objects.
  */
 public class CSE12NaryTree<E extends Comparable<E>> {
     
@@ -106,8 +112,9 @@ public class CSE12NaryTree<E extends Comparable<E>> {
 
     //duplicates are allowed, null values are not allowed.
     /**
-     * adds a new node containing element in the level order, and update the size.
-     * implement queue to do level order, and then find the parent through index calculation
+     * adds a new node containing element in the level order, and update
+     * the size, it implements queue to do level order, and then find the
+     * parent through index calculation
      *
      */
 
@@ -118,46 +125,54 @@ public class CSE12NaryTree<E extends Comparable<E>> {
         }
         //the node to be added
         Node node = new Node(element);
-        //if tree is empty, change the value from null to element, size increments
+        //if tree is empty, creat a new node, it has the value element,
+        //also size increments
         if(this.root == null){
             this.root = new Node(element);
             size++;
             return;
         }
-        //if the tree is not empty, then we use queue to keep iterating the nodes
+        //if the tree is not empty, then we use queue to keep iterating
+        // the nodes.
+        //Queue has two implementation - linked list or priority queue,
+        //In this case, we use linked list to store all the nodes
+        //we can also get the parent node through the index calculation easily
         Queue<Node> q = new LinkedList<>();
-        //use a list to store the nodes in the tree, so that we can get the parent node through
-        //the index calculation easily
-        List<Node> levelnodes = new ArrayList<>();
+        //we use another list to get all the nodes pulled from the queue
+        List<Node> levelnodes = new LinkedList<>();
 
         q.add(root);
-        while(!q.isEmpty()){
-            //remove the node from the queue and add it to the list to store the nodes
+        while(true){
             Node n = q.remove();
+            //remove the node from the queue and add it to the list to store the nodes
             levelnodes.add(n);
-            //iteration through all the children if such nodes exist
+            //iteration through all the children nodes if such nodes exist
             if(n.getChildren()!=null){
                 for(int i = 0; i < n.getNumChildren(); i++){
                     //adding the children (if there are any) to the queue
                     q.add(n.getChildren().get(i));
                 }
             }
+            if(q.isEmpty()){
+                //if all the nodes are removed
+                break;
+            }
         }
-//        while(levelorderhelper(q, curr, height)){
-//            height++;
-//        }
-        //we will get the level order of travesel, and store the nodes in the queue q
-        //now we will find the index of the node's parent and then find the parent
-        int parentindex = (q.size()-1)/N;
+
+        //we will get the level order traversal of the tree, and we store the
+        // all nodes inside the linked list as well.
+        // now we will find the index of the node's parent and the parent node
+        // we give a connection to the parent node and the node that will be
+        // inserted, be careful about the index here.
+        int parentindex = ((levelnodes.size()-1)/N) ;
         //now addChild to the parent node
         Node parent = levelnodes.get(parentindex);
-
         parent.addChild(node);
         size++;
     }
 
     /**
-     * TODO: Add method header
+     * This contains method 
      */
     public boolean contains(E element) {
         //null exception
