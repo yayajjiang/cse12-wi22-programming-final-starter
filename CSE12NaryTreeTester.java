@@ -1,9 +1,10 @@
 /**
- * TODO: Add file header
- * Name:
- * ID:
- * Email:
- * File description: 
+ * Name:Jinya Jiang
+ * ID:A17196093
+ * Email:j9jiang@ucsd.edu
+ * File description: This file is a TreeTester file. It tests the custom cases
+ * and makes sure the methods inside the tree jave file functions well. The
+ * tests are only for the add, contains, and sorttree method in the tree file.
  */
  
 import static org.junit.Assert.*;
@@ -11,24 +12,23 @@ import org.junit.*;
 import java.util.*;
 
 /**
- * TODO: Add class header
+ * This class is a tester class. It has set up method and different
+ * test methods to test the tree and the node. The first four tests
+ * come from the description from the final programming. The rest are
+ * edge cases or other cases which do not cover in the public tests.
  */
 public class CSE12NaryTreeTester {
     //setup
     CSE12NaryTree<Integer> fivetree = new CSE12NaryTree<>(5);
 
-    @Before
-    public void setUp(){
-        fivetree.root = fivetree.new Node(0);
-        //CSE12NaryTree<Integer>.Node parent = fivetree.root.getChildren().get(0);
-
-    }
 
     /**
-     * TODO: Add test case description.
+     * This tests the add method on a 5-ary tree that already contains only
+     * a root node and its 5 children nodes.
      */
     @Test
     public void testAdd(){
+        fivetree.root = fivetree.new Node(0);
         fivetree.root.addChild(fivetree.new Node(1));
         fivetree.root.addChild(fivetree.new Node(2));
         fivetree.root.addChild(fivetree.new Node(3));
@@ -36,23 +36,32 @@ public class CSE12NaryTreeTester {
         fivetree.root.addChild(fivetree.new Node(5));
         fivetree.size=6;
 
-
+        //add the seventh node, which has a value of 6
+        //    0
+        //1 2 3 4 5
+        //6
         fivetree.add(6);
-        //after adding a node, the size should increment, and the position should be right
+        //after adding a node, the size should increment, and the position
+        // should be right
         assertEquals("The size should increase", fivetree.size, 7);
-        assertEquals(fivetree.root.getChildren().get(0).getChildren().get(0).getData(), Integer.valueOf(6));
+        assertEquals(fivetree.root.getChildren().get(0).getChildren().
+                get(0).getData(), Integer.valueOf(6));
     }
 
     /**
-     * TODO: Add test case description
+     * Tests the contains method on a 5-ary tree when the element is
+     * not present in it.
      */
     @Test
     public void testContains(){
+        fivetree.root = fivetree.new Node(0);
         fivetree.root.addChild(fivetree.new Node(1));
         fivetree.root.addChild(fivetree.new Node(2));
         fivetree.root.addChild(fivetree.new Node(3));
         fivetree.root.addChild(fivetree.new Node(4));
         fivetree.root.addChild(fivetree.new Node(5));
+
+        //7 is not in the tree
         assertFalse(fivetree.contains(7));
     }
 
@@ -61,16 +70,19 @@ public class CSE12NaryTreeTester {
      */
     @Test
     public void testSortTree(){
+        fivetree.root = fivetree.new Node(0);
         ArrayList<Integer> expected = new ArrayList<>();
         expected.add(fivetree.root.data);
-        //ArrayList<Integer> actual = fivetree.sortTree();
 
+        //the list contains the data only will be created
         assertEquals(expected, fivetree.sortTree());
 
     }
 
     /**
-     * This tests if elements are null for the add and contains methods, will throw exceptions
+     * This tests if elements are null for add and contains methods,
+     * the outcome is throwing exceptions. This is different from others
+     * because it tests if the element is null, then exceptions will be thrown
      */
     @Test
     public void testCustom(){
@@ -93,8 +105,8 @@ public class CSE12NaryTreeTester {
     }
 
     /**
-     * This tests when that if the tree is empty, then the value of the root will
-     * be the element added
+     * This tests when that if the tree is empty, then the value of the root
+     * will be the element added
      *
      */
     @Test
@@ -108,7 +120,9 @@ public class CSE12NaryTreeTester {
 
     /**
      * This tests when we add many elements to the tree
-     *
+     * //                        0
+     * //           1            2           *3* (added)
+     * //   *4*  *5*  *6*   *7*
      */
     @Test
     public void testaddrecurrsive(){
@@ -124,16 +138,22 @@ public class CSE12NaryTreeTester {
         threetree.add(7);
 
         assertEquals("The size should increase",threetree.size, 8);
-        assertEquals(threetree.root.getChildren().get(2).getData(), Integer.valueOf(3));
-        assertEquals(threetree.root.getChildren().get(0).getChildren().get(0).getData(), Integer.valueOf(4));
-        assertEquals(threetree.root.getChildren().get(0).getChildren().get(1).getData(), Integer.valueOf(5));
-        assertEquals(threetree.root.getChildren().get(0).getChildren().get(2).getData(), Integer.valueOf(6));
-        assertEquals(threetree.root.getChildren().get(1).getChildren().get(0).getData(), Integer.valueOf(7));
+        assertEquals(threetree.root.getChildren().get(2).getData(),
+                Integer.valueOf(3));
+        assertEquals(threetree.root.getChildren().get(0).getChildren().
+                get(0).getData(), Integer.valueOf(4));
+        assertEquals(threetree.root.getChildren().get(0).getChildren().
+                get(1).getData(), Integer.valueOf(5));
+        assertEquals(threetree.root.getChildren().get(0).getChildren().
+                get(2).getData(), Integer.valueOf(6));
+        assertEquals(threetree.root.getChildren().get(1).getChildren().
+                get(0).getData(), Integer.valueOf(7));
 
     }
 
     /**
-     * This tests when that if the tree is empty or it only contains one root node
+     * This tests if the tree is empty and when it contains the root node or
+     * leaf node
      *
      */
     @Test
@@ -144,26 +164,38 @@ public class CSE12NaryTreeTester {
         nulltree.add(3);
         assertEquals(nulltree.contains(3),true);
 
-        CSE12NaryTree<Integer> fivetree = new CSE12NaryTree<>(5);
+        //CSE12NaryTree<Integer> fivetree = new CSE12NaryTree<>(5);
         fivetree.root = fivetree.new Node(0);
         fivetree.root.addChild(fivetree.new Node(1));
         fivetree.root.addChild(fivetree.new Node(2));
         fivetree.root.addChild(fivetree.new Node(3));
         fivetree.root.addChild(fivetree.new Node(4));
         fivetree.root.addChild(fivetree.new Node(5));
-        assertTrue(fivetree.contains(3));
+        assertEquals(fivetree.contains(Integer.valueOf(3)), true);
     }
 
 
+
     /**
-     * test when the 5-ary tree which has many nodes
+     * test when the 5-ary tree is empty , the expected outcome is an
+     * empty arraylist
+     */
+    @Test
+    public void testSortempty(){
+        ArrayList<Integer> expected = new ArrayList<>();
+        assertEquals(expected, fivetree.sortTree());
+
+    }
+    /**
+     * test when the 5-ary tree which has many nodes, the values of them are
+     * out of order
      */
     @Test
     public void testSortTreeregular(){
         ArrayList<Integer> expected = new ArrayList<>();
         expected.add(0);expected.add(1);expected.add(2);
         expected.add(3);expected.add(4);expected.add(5);
-        //ArrayList<Integer> actual = fivetree.sortTree();
+        //0 1 2 3 4 5
         fivetree.root = fivetree.new Node(0);
         fivetree.root.addChild(fivetree.new Node(2));
         fivetree.root.addChild(fivetree.new Node(4));
@@ -182,6 +214,7 @@ public class CSE12NaryTreeTester {
         ArrayList<Integer> expected = new ArrayList<>();
         expected.add(0);expected.add(1);expected.add(1);
         expected.add(2);expected.add(3);expected.add(5);
+        //0 1 1 2 3 5
         //ArrayList<Integer> actual = fivetree.sortTree();
         fivetree.root = fivetree.new Node(0);
         fivetree.root.addChild(fivetree.new Node(2));

@@ -114,8 +114,9 @@ public class CSE12NaryTree<E extends Comparable<E>> {
     /**
      * adds a new node containing element in the level order, and update
      * the size, it implements queue to do level order, and then find the
-     * parent through index calculation
-     *
+     * parent through index calculation,
+     * throw NullPointerException when element is null
+     * @param element
      */
 
     public void add(E element) {
@@ -144,7 +145,8 @@ public class CSE12NaryTree<E extends Comparable<E>> {
         q.add(root);
         while(true){
             Node n = q.remove();
-            //remove the node from the queue and add it to the list to store the nodes
+            //remove the node from the queue and add it to the list to
+            // store the nodes
             levelnodes.add(n);
             //iteration through all the children nodes if such nodes exist
             if(n.getChildren()!=null){
@@ -172,50 +174,61 @@ public class CSE12NaryTree<E extends Comparable<E>> {
     }
 
     /**
-     * This contains method 
+     * This contains method checks if the element is in the N-ary tree
+     * throw NullPointerException when element is null
+     * @param element the element that will be searched in the tree
+     * @return true if the tree contains the element or false if no.
      */
     public boolean contains(E element) {
         //null exception
         if(element == null){
             throw new NullPointerException();
         }
-        //empty tree
+        //empty tree, return false
         if(this.root == null){
             return false;
         }
-        //base case, root value is equal to the element
+        //base case, root value is equal to the element, return directly
         if(this.root.getData().compareTo(element) == 0){
             return true;
         }
-        //if the tree is not empty, then we use queue to keep iterating the nodes
+
+        //if the tree is not empty, then use queue to keep iterating
         Queue<Node> q = new LinkedList<>();
-        //use a list to store the nodes in the tree
-        List<Node> levelnodes = new ArrayList<>();
+        //we use another list to get all the nodes pulled from the queue
+        List<Node> levelnodes = new LinkedList<>();
+
         q.add(root);
-        while(!q.isEmpty()){
-            //remove the node from the queue and add it to the list to store the nodes
+        while(true){
             Node n = q.remove();
+            //remove the node from the queue, store the nodes in the list
             levelnodes.add(n);
-            //iteration through all the children if such nodes exist
+            //iteration through all the children nodes if such nodes exist
             if(n.getChildren()!=null){
                 for(int i = 0; i < n.getNumChildren(); i++){
-                    //iterate through all the children nodes, and compare with the element
-                    //return true if find such node
-                    if(n.getChildren().get(i) == element){
+                    //comparison, return immediately
+                    if(n.getChildren().get(i).getData().compareTo(element)
+                            == 0){
                         return true;
                     }else{
-                        //else keeping adding the nodes into the q
+                        //else keeping adding the nodes, and keep searching
                         q.add(n.getChildren().get(i));
                     }
                 }
             }
+            if(q.isEmpty()){
+                //if all the nodes are removed from the deque
+                break;
+            }
         }
+        //otherwise, the tree does not contain a node whose value is element
         return false;
     }
 
     /**
-     * Use a priority queue and heap sort to return the tree in an ascending order
+     * Use a priority queue and heap sort to return the tree in ascending order
      * if the tree is empty, the list should be null
+     * @return an arraylist
      */
     public ArrayList<E> sortTree(){
         //initialize to an empty list
@@ -224,26 +237,34 @@ public class CSE12NaryTree<E extends Comparable<E>> {
         PriorityQueue<E> pq = new PriorityQueue<>();
         Queue<Node> q = new LinkedList<>();
 
-        //empty tre, return an empty arraylist
+        //empty tree, return an empty arraylist immediately
         if(root == null){
             return list;
         }else {
             q.add(root);
-            while (!q.isEmpty()) {
-                //remove the node from the queue and add it to the list to store the nodes
+            while(true){
                 Node n = q.remove();
+                //remove the node from the queue and add it to the list to
+                // store the nodes
                 pq.add(n.getData());
-                if(n.getChildren() != null){
-                    for(int i =0; i < n.getNumChildren(); i++){
+                //iteration through all the children nodes if such nodes exist
+                if(n.getChildren()!=null){
+                    for(int i = 0; i < n.getNumChildren(); i++){
                         q.add(n.getChildren().get(i));
                     }
                 }
+                if(q.isEmpty()){
+                    //if all the nodes are removed from the deque
+                    break;
+                }
             }
         }
-        while(!pq.isEmpty()){
+        while(true){
             list.add((E)pq.remove());
+            if(pq.isEmpty()){
+                break;
+            }
         }
         return list;
-
     }
 }
